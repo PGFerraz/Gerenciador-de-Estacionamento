@@ -5,6 +5,7 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include "Veiculos.h"
 
 using namespace std;
 
