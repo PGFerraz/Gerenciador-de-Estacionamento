@@ -85,7 +85,7 @@ int main()
                     for (it = estacionados.begin(); it != estacionados.end(); ++it, ++i) {
                         cout << "[" << i << "] ";
                         it->print_dados();
-                        cout << endl;
+                        cout << "\n";
                     }
 
                     cout << "\nDigite o número do veículo a remover: ";
@@ -215,7 +215,7 @@ int main()
                     if (arq.is_open()) {
                         string linha;
                         while (getline(arq, linha)) {
-                            cout << linha << endl;
+                            cout << linha << "\n";
                         }
                         arq.close();
                     } else {
