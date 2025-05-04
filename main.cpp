@@ -8,23 +8,32 @@
 
 using namespace std;
 
-class Carro
+class Veiculo
 {
     private:
-        string placa, tipo;
+        string placa;
+        int tipo_do_veiculo;
     public:
-        Carro()
+        Veiculo()
         {
             placa = "Não informado";
-            tipo = "Não informado";
+            tipo_do_veiculo = 0;
         }
-        ~Carro(){}
+        ~Veiculo(){}
         void set_dados()
         {
-            cout << "\nDigite a placa do carro: ";
+            cout << "\nDigite a placa do veículo: ";
             getline(cin>>ws,placa);
-            cout << "\nDigite se o carro é \"comum\" ou \"prioritário\": ";
-            getline(cin>>ws,tipo);
+            cout << "\nDigite se o veículo é \"comum (1)\" ou \"prioritário (2)\": ";
+            cin >> tipo_do_veiculo;
+        }
+        void print_dados()
+        {
+            cout << "\nPlaca: " << placa << "\tPrioridade: " << tipo_do_veiculo;
+        }
+        int ret_tipo()
+        {
+            return tipo_do_veiculo;
         }
         
 };
