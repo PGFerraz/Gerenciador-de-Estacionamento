@@ -8,42 +8,12 @@
 
 using namespace std;
 
-class Veiculo
-{
-    private:
-        string placa;
-        int tipo_do_veiculo;
-    public:
-        Veiculo()
-        {
-            placa = "Não informado";
-            tipo_do_veiculo = 0;
-        }
-        ~Veiculo(){}
-        void set_dados()
-        {
-            cout << "\nDigite a placa do veículo: ";
-            getline(cin>>ws,placa);
-            cout << "\nDigite se o veículo é \"comum (1)\" ou \"prioritário (2)\": ";
-            cin >> tipo_do_veiculo;
-        }
-        void print_dados()
-        {
-            cout << "\nPlaca: " << placa << "\tPrioridade: " << tipo_do_veiculo;
-        }
-        int ret_tipo()
-        {
-            return tipo_do_veiculo;
-        }
-        
-};
-
 int main()
 {
     int resp_menu=0, resp_switch;
     string resp_vag1;
     queue<Veiculo> entrada, entcopia; // Fila de entrada de veículos
-    vector<int> vagas;
+    vector<int> vagas, vagas_prioritarias;
     list<Veiculo> estacionados, estcopia, estorg;
 
     Veiculo temp;
@@ -69,11 +39,16 @@ int main()
                 do{
                     system("clear");
                     temp.set_dados();
-                    if(vagas.size() >= 10)
+                    if(vagas.size() >= 10 and temp.ret_tipo()==1)
                     {
                         cout << "\nSem vagas disponíveis!!";
                         cout << "\nAdicionando a fila de espera...";
                         entrada.push(temp);
+                    } else if(vagas.size() >= 10 and vagas_prioritarias.size() <=2 and temp.ret_tipo()==2)
+                    {
+                        cout << "\nVaga prioritária no estacionamento garantida!!";
+                        estacionados.push_front(temp);
+                        vagas_prioritarias.push_back(1);
                     } else
                     {
                         cout << "\nVaga no estacionamento garantida!!";
