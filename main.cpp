@@ -16,6 +16,7 @@ int main()
     queue<Veiculo> entrada, entcopia; // Fila de entrada de veículos
     vector<int> vagas, vagas_prioritarias;
     list<Veiculo> estacionados, estcopia, estorg;
+    deque<Veiculo> saida;
 
     Veiculo temp;
     while(true)
