@@ -25,3 +25,7 @@ int Veiculo::ret_tipo()
     {
         return tipo_do_veiculo;
     }
+string Veiculo::ret_placa()
+        {
+            return placa;
+        }
