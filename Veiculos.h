@@ -1,3 +1,5 @@
+#ifndef VEICULOS_H
+#define VEICULOS_H
 #include <iostream>
 #include <string>
 
@@ -16,3 +18,4 @@ class Veiculo
         int ret_tipo();
         
 };
+#endif // VEICULOS_H
