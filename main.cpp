@@ -63,6 +63,82 @@ int main()
                 }while(resp_switch==1);
                 break;
             }
+            case 2:
+            {
+                do {
+                    system("clear");
+                    if (estacionados.empty()) {
+                        cout << "\nNenhum veículo estacionado no momento.";
+                        cout << "\n\nDigite '2' para voltar ao menu: ";
+                        cin >> resp_switch;
+                        break;
+                    }
+
+                    int pos = 0, escolha = 0, i = 1;
+                    list<Veiculo>::iterator it;
+
+                    cout << "\n========================================== ";
+                    cout << "\n  #         Remover Veículo             #";
+                    cout << "\n========================================== ";
+                    cout << "\nVeículos estacionados:\n";
+
+                    for (it = estacionados.begin(); it != estacionados.end(); ++it, ++i) {
+                        cout << "[" << i << "] ";
+                        it->print_dados();
+                        cout << endl;
+                    }
+
+                    cout << "\nDigite o número do veículo a remover: ";
+                    cin >> pos;
+
+                    if (pos <= 0 || pos > estacionados.size()) {
+                        cout << "\nOpção inválida!";
+                    } else {
+                        it = estacionados.begin();
+                        advance(it, pos - 1);
+
+                        Veiculo removido = *it;
+
+                        cout << "\nDeseja que o veículo saia pela frente (1) ou pelo fundo (2)? ";
+                        cin >> escolha;
+
+                        if (escolha == 1)
+                            saida.push_front(removido);
+                        else
+                            saida.push_back(removido);
+
+                        // Gravar no histórico
+                        ofstream arq("historico.txt", ios::app);
+                        if (arq.is_open()) 
+                        {
+                        arq << "Placa: " << removido.ret_placa()
+                        << " | Tipo: " << removido.ret_tipo()
+                        << " | Saída pela " << (escolha == 1 ? "frente" : "fundo") << "\n" ;
+                        arq.close();
+                        } 
+                        else
+                        {
+                            cout << "\nErro ao gravar no histórico.";
+                        }
+
+                        if (removido.ret_tipo() == 2 && !vagas_prioritarias.empty()) {
+                            vagas_prioritarias.pop_back();
+                        } else if (!vagas.empty()) {
+                            vagas.pop_back();
+                        }
+
+                        estacionados.erase(it);
+
+                        cout << "\nVeículo movido para a fila de saída com sucesso!";
+                    }
+
+                    cout << "\n\nDigite (1) para remover outro carro ou (2) para voltar ao menu: ";
+                    cin >> resp_switch;
+
+                } while (resp_switch == 1);
+
+                break;
+            }
 
             case 3:
             {
@@ -125,6 +201,30 @@ int main()
                     cout << "\n\nPara voltar ao menu, digite '2': ";
                     cin >> resp_switch;
                 }while(resp_switch==1);
+                break;
+            }
+            case 5:
+            {
+                do {
+                    system("clear");
+                    cout << "\n========================================== ";
+                    cout << "\n  #       Histórico de Veículos         #";
+                    cout << "\n==========================================\n";
+
+                    ifstream arq("historico.txt");
+                    if (arq.is_open()) {
+                        string linha;
+                        while (getline(arq, linha)) {
+                            cout << linha << endl;
+                        }
+                        arq.close();
+                    } else {
+                        cout << "\nNenhum histórico encontrado.";
+                    }
+
+                    cout << "\n\nDigite (1) para visualizar novamente ou (2) para voltar ao menu: ";
+                    cin >> resp_switch;
+                } while (resp_switch == 1);
                 break;
             }
         }
