@@ -16,6 +16,6 @@ class Veiculo
         void set_dados();
         void print_dados();
         int ret_tipo();
-        
+        string ret_placa()
 };
 #endif // VEICULOS_H
